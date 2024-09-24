@@ -1,0 +1,49 @@
+name: React App CI/CD with SonarQube Integration
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-and-sonarqube:
+    name: Build React App and Run SonarQube Scan
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]  # Specify the Node.js version for React app
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        # Disabling shallow clone is recommended for improving relevancy of SonarQube reporting
+        fetch-depth: 0
+
+    - name: Set up Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
+      run: npm test
+
+    - name: Build the React app
+      run: npm run build
+
+    # Run SonarQube Scan after building the React app
+    - name: SonarQube Scan
+      uses: sonarsource/sonarqube-scan-action@master
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}        # Use the SonarQube token from secrets
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}  # SonarQube server URL from secrets
+       
+
+    # Optionally deploy the built React app (for example to AWS S3, GitHub Pages, etc.)
+    # - name: Deploy React App
+    #   run: <add your deployment command here>
