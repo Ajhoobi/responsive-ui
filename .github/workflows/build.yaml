@@ -40,7 +40,7 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}        # Use the SonarQube token from secrets
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}  
-       
+        SONAR_PROJECT_KEY: responsive-ui
 # SonarQube server URL from secrets
     # Optionally deploy the built React app (for example to AWS S3, GitHub Pages, etc.)
     # - name: Deploy React App
