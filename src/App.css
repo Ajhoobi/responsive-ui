@@ -11,7 +11,7 @@ body, html {
 
 .toggle-container {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   justify-content: flex-end;
   margin-bottom: 20px;
 }
@@ -22,7 +22,7 @@ body, html {
 
 #buttons {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 #buttons button {
