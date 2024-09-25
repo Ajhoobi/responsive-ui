@@ -35,12 +35,12 @@ jobs:
       run: npm run build
 
     # Run SonarQube Scan after building the React app
-    - name: SonarQube Scan
-      uses: sonarsource/sonarqube-scan-action@master
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}        # Use the SonarQube token from secrets
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}  
-        SONAR_PROJECT_KEY: responsive-ui
+    -  name: SonarQube Scan
+       run: |
+        sonar-scanner \
+          -Dsonar.projectKey=responsive-ui \
+          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 # SonarQube server URL from secrets
     # Optionally deploy the built React app (for example to AWS S3, GitHub Pages, etc.)
     # - name: Deploy React App
